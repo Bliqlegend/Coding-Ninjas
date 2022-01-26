@@ -1,15 +1,17 @@
 from more_itertools import take
 from bfs import Graph
 
+
 def hasPath(vf,vs):
-    if g.containsEdge(vf,vs):
+    if g.hasPathHelper(vf,vs):
         return True
     else:
         arr = g.cel(vf)
         for i in arr:
-            if g.containsEdge(i,vs):
+            if g.hasPathHelper(i,vs):
                 return True
     return False
+
 def takeInput():
     ele = []
     ele = [int(element) for element in list(input().strip().split(" "))]

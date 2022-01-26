@@ -2,8 +2,6 @@
 # coding: utf-8
 
 # In[17]:
-
-
 import queue
 
 class Graph:
@@ -13,16 +11,20 @@ class Graph:
         self.adjMatrix = [[0 for j in range(n)] for i in range(n)]
     
     def addEdge(self,v1,v2):
-        self.adjMatrix[v1][v2] =1
+        self.adjMatrix[v1][v2] = 1
         self.adjMatrix[v2][v1] = 1
     
+    def hasPathHelper(self,a,b):
+        if self.adjMatrix[a][b] == 1 and self.adjMatrix[b][a] == 1:
+            return True
+        return False
+
     def cel(self,v):
         arr = []
         for i in range(self.n):
             if self.adjMatrix[v][i] == 1:
                 arr.append(i)
         return arr
-                
     
     def bfs(self):
         q = queue.Queue()
@@ -38,11 +40,7 @@ class Graph:
                     visited[i] = True
     
     def containsEdge(self,v1,v2):
-        print("printing v1 v2")
-        print(v1,end=' ')
-        print(v2,end=' ')
-
-        if self.adjMatrix[v1][v2] > 0:
+        if self.adjMatrix[v1][v2] == 1:
             return True
         return False
     
@@ -71,14 +69,4 @@ def takeInput():
         idx+=1
     return nv,ne,arr
 
-
-# nv,ne,arr = takeInput()
-# g = Graph(nv,ne)
-# i= 0
-# j= 0
-# while i < nv and j < ne:
-#     g.addEdge(arr[i][0],arr[i][1])
-#     i+=1
-#     j+=1
-# g.bfs()
 

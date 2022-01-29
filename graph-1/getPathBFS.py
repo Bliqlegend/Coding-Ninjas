@@ -1,6 +1,8 @@
 from sys import stdin, setrecursionlimit
 setrecursionlimit(10**6)
 
+import queue
+
 class Graph:
     def __init__(self,n,ne):
         self.n = n
@@ -22,26 +24,44 @@ class Graph:
         self.adjMatrix[v1][v2] = 0
         self.adjMatrix[v2][v2] = 0
 
-    def getPathHelper(self,vf,vs,visited):
-        if vf == vs:
-            return list([vf])
+    def getPathBFSHelper(self,vf,vs,visited):
+        mapp = {}
+        q = queue.Queue()
+        
+        if self.adjMatrix[vf][vs] == 1 and vf == vs:
+            ans = []
+            ans.append(vf)
+            return ans
+        
+        q.put(vf)
         visited[vf] = True
-        
-        for i in range(self.n):
-            if self.adjMatrix[vf][i] == 1 and not visited[i]:
-                li = self.getPathHelper(i,vs,visited)
 
-                if li != None:
-                    li.append(vf)
-                    return li
-        return None
+        while q.empty() is False:
+            front = q.get()
+            for i in range(self.n):
+                if self.adjMatrix[front][i] == 1 and visited[i] is False:
+                    mapp[i] = front
+                    q.put(i)
+                    visited[i] = True
 
+                    if i == vs:
+                        ans = []
+                        ans.append(vs)
+                        value = mapp[vs]
 
+                        while value != vs:
+                            ans.append(value)
+                            p = mapp[value]
+                            value = p
+                        ans.append(value)
+                        return ans
+        return []    
 
-    def getPath(self,vf,vs):
-        
+    def getPathBFS(self,vf,vs):
+        if vf > self.n -1 or vs > self.n -1:
+            return list() 
         visited =  [False for i in range(self.n)]
-        return self.getPathHelper(vf,vs,visited)
+        return self.getPathBFSHelper(vf,vs,visited)
 
         
     def __str__(self):
@@ -76,7 +96,8 @@ while i < nv and j < ne:
     g.addEdge(arr[i][0],arr[i][1])
     i+=1
     j+=1
-ans = g.getPath(vf,vs)
+
+ans = g.getPathBFS(vf,vs)
 if ans!= None:
     for ele in ans:
         print(ele,end=' ')

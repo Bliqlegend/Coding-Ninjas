@@ -34,24 +34,35 @@ class Graph:
     def __str__(self):
         return str(self.adjMatrix)
 
-    def isConnected(self):
+    def allCPHelper(self,visited,v,so):
+        visited[v] = True
+        so.append(v)
+
+        for i in range(self.n):
+            if self.adjMatrix[v][i] == 1 and not visited[i]:
+                self.allCPHelper(visited,i,so)
+        return so
+
+    def allCP(self):
         visited = [False for i in range(self.n)]
-        self.dfsHelper(0,visited)
-        for bool in visited:
-            if bool is False:
-                return False
-        return True
+        output= list()
+        for i in range(self.n):
+            if not visited[i]:
+                so = list()
+                self.allCPHelper(visited,i,so)
+                output.append(so)
+        return output
 
 arr1=[int(x) for x in input().split()]
 v=arr1[0]
-if v == 0:
-    print('true')
-else:
-    p=Graph(v) 
-    for i in range(arr1[1]):
-        arr2=[int(x) for x in input().split()]
-        p.addEdge(arr2[0],arr2[1])
-    if p.isConnected():
-        print("true")
-    else:
-        print("false")
+p=Graph(v) 
+for i in range(arr1[1]):
+    arr2=[int(x) for x in input().split()]
+    p.addEdge(arr2[0],arr2[1])
+
+o = p.allCP()
+for ele1 in o:
+    ele1.sort()
+    for ele2 in ele1:
+            print(ele2,end=' ')
+    print()

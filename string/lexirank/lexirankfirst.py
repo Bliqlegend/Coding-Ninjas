@@ -11,12 +11,9 @@ def permutation(s,on,output):
         permutation(rest,on + ch,output)
     return output
 
+
 def lexiRank(s):
     sw = ''.join(sorted(s))
     output = permutation(sw,"",[])
     n = output.index(s)+1
     return n
-
-s = "string"
-n = lexiRank(s)
-print(n)

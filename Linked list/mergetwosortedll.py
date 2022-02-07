@@ -1,15 +1,3 @@
-import ll
-
-def midPoint(head):
-    if head is None:
-        return None
-    slow=head
-    fast =head
-    while fast.next!=None and fast.next.next!=None:
-        slow=slow.next
-        fast = fast.next.next
-    return slow
-
 def merge(head1,head2):
     if head1 == None:
         return None
@@ -39,18 +27,3 @@ def merge(head1,head2):
     return newHead    
 
 
-def mergeSort(head):
-    if head is None or head.next is None:
-        return head
-    mid = midPoint(head)
-    half1 = head
-    half2 = mid.next # because we start from mid+1
-    # mid.next = None
-    half1 = mergeSort(half1)
-    half2 = mergeSort(half2)
-    fh = merge(half1,half2)
-    return fh
-
-head = ll.StakeInput()
-mergeSort(head)
-ll.printLL(head)

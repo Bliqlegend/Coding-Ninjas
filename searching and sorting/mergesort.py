@@ -36,4 +36,6 @@ def mergeSort(arr,start,end):
 
 arr = [int(ele) for ele in input().split()]
 
+mergeSort(arr,0,len(arr))
+
 

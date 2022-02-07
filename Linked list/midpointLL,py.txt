@@ -1,5 +1,0 @@
-
-
-head = ll.StakeInput()
-head = reverse(head)
-ll.printLL(head)

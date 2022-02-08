@@ -1,2 +1,2 @@
-,newnode):
-    curr = head
+
+    print(curr1.data)

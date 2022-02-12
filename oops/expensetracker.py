@@ -7,4 +7,3 @@ class ExpenseTracker:
 
 m = ExpenseTracker("12jan","dinner with friends","Credit",2000)
 print(m.amount)
-        

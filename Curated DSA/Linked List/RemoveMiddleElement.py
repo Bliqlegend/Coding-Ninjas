@@ -12,10 +12,16 @@ def deleteMiddle(head):
     if head is None or head.next is None:
         return None
     L = lengthofLL(head)
-    c = L//2
+    if L % 2 == 0:
+        c = (L//2)-1
+    else:
+        c = (L//2)
+    if c==0:
+        head = head.next
+        return head
+    curr = head
     prev = None
     count = 0
-    curr = head
     while curr is not None:
         if count == c:
             if curr.next is None:
